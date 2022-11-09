@@ -20,15 +20,32 @@ public class MingleDbContext : IdentityDbContext<AppUser, AppRole, int,
         base.OnModelCreating(builder);
 
         builder.Entity<AppUser>()
+            .ToTable("Users")
             .HasMany(ur => ur.UserRoles)
             .WithOne(ur => ur.User)
             .HasForeignKey(ur => ur.UserId)
             .IsRequired();
 
         builder.Entity<AppRole>()
+            .ToTable("Roles")
             .HasMany(ur => ur.UserRoles)
             .WithOne(ur => ur.Role)
             .HasForeignKey(ur => ur.RoleId)
             .IsRequired();
+
+        builder.Entity<IdentityUserClaim<int>>()
+            .ToTable("UserClaims");
+
+        builder.Entity<IdentityUserLogin<int>>()
+            .ToTable("UserLogins");
+
+        builder.Entity<IdentityUserToken<int>>()
+            .ToTable("UserTokens");
+
+        builder.Entity<IdentityRoleClaim<int>>()
+            .ToTable("RoleClaims");
+
+        builder.Entity<AppUserRole>()
+            .ToTable("UserRoles");
     }
 }
