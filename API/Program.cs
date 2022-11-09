@@ -60,4 +60,13 @@ app.UseAuthentication();
 
 app.MapControllers();
 
-app.Run();
+// using keyword disposes this service scope after use.
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+var userManager = services.GetRequiredService<UserManager<AppUser>>();
+var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+
+await SeedData.SeedUsersAsync(userManager, roleManager);
+
+await app.RunAsync();
