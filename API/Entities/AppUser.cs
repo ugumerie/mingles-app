@@ -19,4 +19,11 @@ public class AppUser : IdentityUser<int> // usrname, password
 
     public ICollection<AppUserRole>? UserRoles { get; set; }
     public ICollection<Photo>? Photos { get; set; }
+
+    public string GetFullname()
+    {
+        return $"{Firstname} {Lastname}";
+    }
+
+    public string Fullname => $"{Firstname} {Lastname}";
 }
