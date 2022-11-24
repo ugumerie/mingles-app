@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[ApiController]
-[Route("[controller]")] // => /users
-public class UsersController : ControllerBase
+// => api/users
+public class UsersController : BaseApiController
 {
     private readonly IUserRepository _userRepository;
     public UsersController(IUserRepository userRepository)
@@ -15,6 +14,7 @@ public class UsersController : ControllerBase
         _userRepository = userRepository;
     }
 
+    // => api/users
     [HttpGet]
     public async Task<ActionResult<List<UserDto>>> GetAllUsers([FromQuery] UserParams userParams)
     {
